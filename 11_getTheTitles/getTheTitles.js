@@ -1,5 +1,5 @@
 const getTheTitles = function(obj) {
-    return obj.map(({title}) => title)
+    return obj.map(({title}) => title )
 };
 
 
