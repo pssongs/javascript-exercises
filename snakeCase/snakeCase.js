@@ -1,61 +1,21 @@
 const snakeCase = function(string) {
-    if(isCamelCase(string.trim())){
-        return camelify(string)
-    } 
-    
-    return isDouble(string.split("").map(letter => {
-        if(!!letter.toLowerCase().match(/[^a-z]/)){
-            return  "_"
-        } return letter
-    }).join("").toLowerCase())
-    
-};
-
-const isCamelCase = function(word){
-    //checking for punctuations/space, capital first letter, and consecutive capital letters
-    if (!!word.toLowerCase().match(/[^a-z]/) || !!word[0].match(/[A-Z]/) || !!word.match(/[A-Z]{2,}/)){
-        return false
-    } 
-
-    //then if there is capital, it must be a camel case
-    if (!!word.match(/[^A-Z]/)){
-        return true
-    } 
-
-    return false
-
-    
-}
-
-const camelify = function(word){
-    let index = []
-    let letter = word.split("")
-
-    for (let i = 0; i < letter.length; i++){
-        if(letter[i].match(/[A-Z]/)){
-            index.push("_")
-            index.push(letter[i])
-        } else {index.push(letter[i])}
+    //wtf case
+    string = string.replace(/\.\./g, " ");
+  
+    // this splits up camelcase IF there are no spaces in the word
+    if (string.indexOf(" ") < 0) {
+      string = string.replace(/([A-Z])/g, " $1");
     }
-    return index.join("").toLowerCase()
-}
 
-const isDouble = function(word){
-    let result = word.split("")
-    
-    for (let i = 0; i < result.length; i++){
-        if((result[i] == "_") && (result[i+1] == "_")){
-            result[i] = ""
-        }
-    }
-    if(result[result.length-1] == "_"){
-        result[result.length-1] = ""
-    }
-    return result.join("")
-}
+    return string
+      .trim()
+      .toLowerCase()
+      .replace(/[,\?\.]/g, "")
+      .replace(/\-/g, " ")
+      .split(" ")
+      .join("_");
+  };
+  
+  module.exports = snakeCase;
 
-
-
-
-// Do not edit below this line
-module.exports = snakeCase;
+  
